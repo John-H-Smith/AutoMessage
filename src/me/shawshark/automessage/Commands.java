@@ -24,15 +24,19 @@ public class Commands implements CommandExecutor {
 				return true;
 			} else {
 				if(args[0].equalsIgnoreCase("reload")) {
-					m.reloadConfig();
-					
-					m.task.cancel();
-					m.messages.clear();
-					m.loadMessages();
-					m.repeatingTask();
-					s.sendMessage(ChatColor.GOLD + "AutoMessage: " + ChatColor.GREEN + "Reloaded config!");
-					
-					return true;
+					if(s.hasPermission("automessage.reload")) {
+						m.reloadConfig();
+						
+						m.task.cancel();
+						m.messages.clear();
+						m.loadMessages();
+						m.repeatingTask();
+						s.sendMessage(ChatColor.GOLD + "AutoMessage: " + ChatColor.GREEN + "Reloaded config!");
+						
+						return true;
+					} else {
+						s.sendMessage(ChatColor.GOLD + "Error: You don't have permissions for this command!");
+					}
 				}
 			}
 		}

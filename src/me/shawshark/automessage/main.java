@@ -9,16 +9,20 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public class main extends JavaPlugin {
 	
 	public List<messages> messages = new ArrayList<messages>();
+	public BukkitTask task;
 	int timer;
 	int count;
 	
 	public void onEnable() {
 		saveDefaultConfig();
 		saveConfig();
+		
+		getCommand("automessage").setExecutor(new Commands(this));
 		
 		timer = getConfig().getInt("timer");
 		
@@ -47,7 +51,7 @@ public class main extends JavaPlugin {
 	}
 	
 	public void repeatingTask() {
-		new BukkitRunnable() {
+		task = new BukkitRunnable() {
 			
 			@Override
 			public void run() {

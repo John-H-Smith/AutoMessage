@@ -55,14 +55,16 @@ public class main extends JavaPlugin {
 			
 			@Override
 			public void run() {
-				int messageSize = messages.size();
-				Random rand = new Random();
-				int randomNumber = rand.nextInt(messageSize);
-				
-				for(messages m : messages) {
-					if(m.id == randomNumber) {
-						Bukkit.broadcastMessage(Colour(m.message));
-						return;
+				if(getServer().getOnlinePlayers().size() > 0) {
+					int messageSize = messages.size();
+					Random rand = new Random();
+					int randomNumber = rand.nextInt(messageSize);
+
+					for(messages m : messages) {
+						if(m.id == randomNumber) {
+							Bukkit.broadcastMessage(Colour(m.message));
+							return;
+						}
 					}
 				}
 			}
